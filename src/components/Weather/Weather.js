@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
+import weather from "../../Images/weather.jpg";
 const Weather = () => {
   const apiKey = "26da6d25a49232eeb2526ad9222f1b7e";
   const [data, setData] = useState({});
@@ -23,28 +23,72 @@ const Weather = () => {
 
   const handleChangeInput = (e) => {
     e.preventDefault();
+    console.log(e.target.value);
     setInputCity(e.target.value);
   };
-
 
   const handleSearch = () => {
     getWeatherDetails(inputCity);
   };
 
-
   useEffect(() => {
-    getWeatherDetails("savar");
+    getWeatherDetails("new york");
   }, []);
 
   return (
-    <div>
-      <h2>Weather check</h2>
-      <input onChange={handleChangeInput} type="text" value={inputCity} className="form-control border-2" />
-      <button onClick={handleSearch} className="btn btn-primary" type="button">
+    <div className='lg:mx-24 mx-4'>
+      <div class="card  bg-base-100 shadow-xl">
+        <div class="card-body ">
+          <div className="grid grid-cols-12 ">
+            <div
+              style={{
+                background: `url(${weather})`,
+                backgroundPosition: "center",
+               backgroundRepeat: "no - repeat",
+               backgroundSize: "cover"
+              }}
+              className="col-span-8 bg-primary pt-72 pb-20 "
+            >
+              <div className="text-white flex items-center justify-center space-x-2">
+                <h2 className="text-7xl font-bold font-mono">
+                  {(data?.main?.temp - 273.15).toFixed(0)}°
+                </h2>
+                <h2 className="text-4xl font-bold font-mono">{data?.name}</h2>
+              </div>
+            </div>
+
+
+            <div className="col-span-4 bg-slate-700">
+            <div className="flex items-center space-x-2 justify-center mt-4">
+            <input onChange={handleChangeInput} type="text" placeholder="Enter city" value={inputCity} className="form-control input h-8 max-w-xs" />
+      <button onClick={handleSearch} class="py-0.5 px-4 border rounded border-green-600 text-white bg-green-600 font-bold mt-2 mb-3" type="button">
         Search
       </button>
-      <h2>{data?.name}</h2>
-      <p>{(data?.main?.temp - 273.15).toFixed(2)} c</p>
+            </div>
+
+            <div className="lg:mx-16 text-white">
+                <h2 className="text-lg font-bold mt-12 mb-6">Weather Details</h2>
+                <div className="flex items-center justify-between">
+                    <h2>Feels like</h2>
+                    <h2>{(data?.main?.feels_like - 273.15).toFixed(0)}°</h2>
+                </div>
+                <div className="flex items-center justify-between my-2">
+                    <h2>Humidity</h2>
+                    <h2>{data?.main?.humidity}%</h2>
+                </div>
+                <div className="flex items-center justify-between">
+                    <h2>Air Pressure</h2>
+                    <h2>{data?.main?.pressure} PS</h2>
+                </div>
+                <div className="flex items-center justify-between my-2">
+                    <h2>Humidity</h2>
+                    <h2>{data?.wind?.speed} km/h</h2>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
