@@ -41,7 +41,7 @@ const Weather = () => {
   let showDateString = showDate.toDateString();
   let displayTime = showDate.getHours()+':'+showDate.getMinutes();
   return (
-    <div className='lg:mx-24 mx-4 lg:mb-32'>
+    <div className='lg:mx-24 mx-4 lg:mb-24 mb-16 mt-12 lg:mt-2'>
       <div class="card  bg-base-100 shadow-xl">
         <div class="card-body ">
           <div className="lg:grid grid-cols-12 ">
